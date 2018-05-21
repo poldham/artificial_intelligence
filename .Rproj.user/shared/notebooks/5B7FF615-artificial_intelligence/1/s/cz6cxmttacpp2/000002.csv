@@ -1,0 +1,36 @@
+"0","library(tidytext)"
+"0","library(tidyverse)"
+"0","# unnest the hashtags (one per row)"
+"0","ai_hashtags <- AI %>%"
+"0","  unnest(hashtags)"
+"0","# show the hashtags"
+"0","ai_hashtags %>%"
+"0","  count(hashtags, sort = TRUE)"
+"1","[38;5;246m# A tibble: 7,669 x 2[39m
+"
+"1","   hashtags                   n
+"
+"1","   [3m[38;5;246m<chr>[39m[23m                  [3m[38;5;246m<int>[39m[23m
+"
+"1","[38;5;250m 1[39m AI                      [4m7[24m808
+"
+"1","[38;5;250m 2[39m ai                      [4m1[24m459
+"
+"1","[38;5;250m 3[39m IoT                      922
+"
+"1","[38;5;250m 4[39m MachineLearning          871
+"
+"1","[38;5;250m 5[39m BigData                  792
+"
+"1","[38;5;250m 6[39m ArtificialIntelligence   700
+"
+"1","[38;5;250m 7[39m ML                       558
+"
+"1","[38;5;250m 8[39m tech                     498
+"
+"1","[38;5;250m 9[39m machinelearning          437
+"
+"1","[38;5;250m10[39m DeepLearning             402
+"
+"1","[38;5;246m# ... with 7,659 more rows[39m
+"

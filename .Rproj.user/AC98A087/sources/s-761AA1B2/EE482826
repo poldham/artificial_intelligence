@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1524065066390.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EE482826",
+    "lastKnownWriteTime" : 2318265772620644358,
+    "last_content_update" : 1524065066390,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "9BF47D6",
+        "caption" : "tw2",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=tw2&cache_key=9BF47D6",
+        "displayedObservations" : 546,
+        "environment" : "",
+        "object" : "tw2",
+        "preview" : 0,
+        "totalObservations" : 546,
+        "variables" : 86
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

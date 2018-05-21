@@ -1,0 +1,50 @@
+---
+title: "Untitled"
+author: "Paul Oldham"
+date: "16/04/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## AI and machine learning tweets
+
+Install and authenticate with `rwteet`  following the instructions [here](https://github.com/mkearney/rtweet)
+
+Create a starter set searching on the #AI hashtag to identify other hashtags.
+
+```{r}
+library(rtweet)
+AI <- search_tweets(
+  "#AI", n = 10000, include_rts = FALSE
+)
+```
+
+What hashtags are people using in association with AI in the starter set?
+
+```{r}
+library(tidytext)
+library(tidyverse)
+# unnest the hashtags (one per row)
+
+ai_hashtags <- AI %>%
+  unnest(hashtags)
+
+# count up the hashtags
+ai_hashtags %>%
+  count(hashtags, sort = TRUE)
+```
+
+
+```{r}
+# write files
+#write_csv(AI, "AI.csv") # has a list column and therefore won't write directly
+
+ai_hashtags %>%
+  count(hashtags, sort = TRUE) %>% 
+  write_csv(., "ai_hashtags.csv")
+```
+
+

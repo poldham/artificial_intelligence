@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1523882772198.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E0DBA40D",
+    "lastKnownWriteTime" : 4323999752,
+    "last_content_update" : 1523882772198,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "39D07A7A",
+        "caption" : "trends",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=trends&cache_key=39D07A7A",
+        "displayedObservations" : 467,
+        "environment" : "",
+        "object" : "trends",
+        "preview" : 0,
+        "totalObservations" : 467,
+        "variables" : 8
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

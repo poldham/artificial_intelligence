@@ -1,0 +1,58 @@
+---
+title: "Untitled"
+author: "Paul Oldham"
+date: "21/05/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Rough initial workings on sentiment analysis for AI tweets
+
+
+```{r}
+library(tidytext)
+# divide into words and remove stopwords
+ai_tokens <- AI %>%
+  unnest_tokens(., word, text) %>% 
+  anti_join(stop_words)
+
+# join to sentiments dictionary (in this case bing)
+ai_sentiment <- ai_tokens %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(sentiment = positive - negative)
+
+# What are the top positive terms in the tweets
+
+ai_sentiment %>% 
+  arrange(sentiment) %>% 
+  View()
+
+# Wnat are the top ranking negative terms
+ai_sentiment %>% 
+  dplyr::filter(sentiment <= 0) %>%
+  arrange(sentiment) %>% 
+  View()
+
+# This is a very raw quick look at sentiments to see what comes up
+# No banana yet
+ai_sentiment %>% 
+  count(word, sentiment, sort = TRUE) %>% ungroup() %>% 
+  group_by(sentiment) %>%
+  dplyr::top_n(5) %>%
+  ungroup() %>% 
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(word, n, fill = sentiment)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~sentiment, scales = "free_y") +
+  labs(y = "Contribution to sentiment",
+       x = NULL) +
+  coord_flip()
+
+
+
+```

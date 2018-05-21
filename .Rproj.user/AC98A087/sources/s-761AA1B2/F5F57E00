@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1523959495414.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "F5F57E00",
+    "lastKnownWriteTime" : 1523967444,
+    "last_content_update" : 1523967444855,
+    "path" : "~/Desktop/artificial_intelligence/rwteet_blogpost.Rmd",
+    "project_path" : "rwteet_blogpost.Rmd",
+    "properties" : {
+        "cursorPosition" : "115,26",
+        "last_setup_crc32" : "",
+        "scrollLine" : "0",
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

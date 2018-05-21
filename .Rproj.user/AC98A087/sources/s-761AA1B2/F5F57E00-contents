@@ -1,0 +1,121 @@
+---
+title: "Untitled"
+author: "Paul Oldham"
+date: "17/04/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+I NEED TO USE A DIFFERENT ACCOUNT TO DO THIS I THINK. NO I DONT BUT IT MIGHT BE EASIER.
+
+
+In this article we use twitter to collect information about tweets on artificial intelligence and machine learning. Twitter data can be used for a range of purposes including:
+
+- identifying social and commercial actors who are active in tweeting on a particular topic
+- sentiments analysis around a topic
+- literature and reports that are trending around a topic
+- network analysis of actors involved interested in a topic
+
+There are a number of different ways to collect twitter data including using Excel or Python ([Tweepy](http://www.tweepy.org/), [Twython](https://twython.readthedocs.io/en/latest/)) with Python users supported by [21 Recipes for Mining Twitter](https://www.amazon.co.uk/Recipes-Mining-Twitter-Matthew-Russell/dp/1449303161) by Matthew Russell. 
+
+We will be using the well known [rwteet](https://github.com/mkearney/rtweet) package by Matt Kearney in R and the accompanying [21 Recipes for Mining Twitter Data with rtweet](https://rud.is/books/21-recipes/) recipe book by Bob Rudis that is modelled on the Python book. 
+
+### Install Packages
+
+```{r}
+install.packages("rtweet")
+install.packages("tidyverse")
+installed.packages("usethis")
+# install dbase things recipe
+```
+
+### Creating and App
+
+We first need to head over to [https://apps.twitter.com/](https://apps.twitter.com/app/15104856) and login or create an account. 
+
+Next we need to create an application. Note that choosing a name can be difficult (for example obvious things like AI for artificial intelligence are taken), so focus on something you can remember. 
+
+```{r}
+knitr::include_graphics("/Users/colinbarnes/Desktop/artificial_intelligence/images/create_twitter_api.png")
+```
+
+Make sure you add: http://127.0.0.1:1410 to the callbakck id or the authentication will not work. 
+
+When the application is created you will be taken to this page:
+
+```{r}
+knitr::include_graphics("/Users/colinbarnes/Desktop/artificial_intelligence/images/ai_wipo_analytics_details.png")
+```
+
+You now need to copy the information in the Keys and Access Tokens tab into a text file (in RStudio use File > New File > Text File). It will look like this.
+
+```{r}
+knitr::include_graphics("/Users/colinbarnes/Desktop/artificial_intelligence/images/old_key_secret.png")
+```
+
+Note that if you lose your key and secret then you can regenerate them. You can also use this button if you expose the key and secret deliberatley (as in this demo) or by accident. 
+
+There are some security issues around the key and the secret. If you are certain that you will never be committing this file to Github or to a blog post you can probably just keep the info in a text file in your RStudio project. 
+
+However, a far better idea is to save the information in your ~/.Renviron file because this is stored outside your working directory and won't be exposed. The easiest way to find your Renviron file is to use the package `usethis` that we installed earlier
+
+```{r}
+usethis::edit_r_environ()
+```
+
+When we use this command it will open the Renviron file. We then need to add in the relevant information. If you have more than one twitter app data stored in your environment (as you can have more than one app) then you will need to give them distinctive names for setup.
+
+```{r}
+TWITTER_APP = ai_wipo_analytics
+TWITTER_CONSUMER_KEY=yourkey
+TWITTER_CONSUMER_SECRET=yoursecret
+```
+
+For changes to the Renviron to take effect you need to restart R (Session > Restart R). You will then be able to access the key and the secret using the names you gave them. 
+
+```{r eval=FALSE}
+Sys.getenv("TWITTER_AI_CONSUMER_KEY")
+```
+
+Next up we set up the application to generate an `access token` as part of the OAuth authentication process:
+
+```{r}
+library(rtweet)
+create_token(
+  app = Sys.getenv("TWITTER_AI_APP"),
+  consumer_key = Sys.getenv("TWITTER_AI_CONSUMER_KEY"),
+  consumer_secret = Sys.getenv("TWITTER_AI_CONSUMER_SECRET")
+) -> twitter_token
+```
+
+You will then be taken to a web page where you will see a large Authorize App button or (as below) will be asked to sign in and authorise. 
+
+```{r}
+knitr::include_graphics("images/authorize_app.png")
+```
+
+We now need to save the token that we received. Bob Rudis suggests the following.
+
+```{r}
+saveRDS(twitter_token, "-/.rtweet_ai.rds")
+```
+
+Next we access the .Renviron again using:
+
+```{r}
+usethis::edit_r_environ()
+
+```
+
+and add
+
+```{r}
+TWITTER_PAT=~rtweet_ai.rds
+```
+
+If all goes well you never have to worry about this again. However, note that when you authorized the app you authorized it to access your account. That means if anyone else gets access to the key, secret or token they will be able to take over the account unless you delete the app or change those settings. This is why it is worth taking time to store the key, secret and token somewhere out of the way. 
+
+
