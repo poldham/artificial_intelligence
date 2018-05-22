@@ -6,15 +6,21 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
 Rough initial workings on sentiment analysis for AI tweets. Uses the Silge and Robinson *Text Mining with R: A Tidy Approach* from which the code is adapted. 
 
 Takes the 9175 AI seed tweets.
 
+```{r echo=FALSE}
+load("AI.rda")
+```
+
+
 ```{r}
 library(tidytext)
+library(tidyverse)
 # divide into words and remove stopwords
 ai_tokens <- AI %>%
   unnest_tokens(., word, text) %>% 
@@ -52,8 +58,8 @@ ai_sentiment %>%
 
 
 
-
-
+```{r eval=FALSE, echo=FALSE}
+# The below is not working yet
 # This is a very raw quick look at sentiments to see what comes up
 # No banana yet
 ai_sentiment %>% 
@@ -68,7 +74,4 @@ ai_sentiment %>%
   labs(y = "Contribution to sentiment",
        x = NULL) +
   coord_flip()
-
-
-
 ```
