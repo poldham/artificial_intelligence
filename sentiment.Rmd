@@ -1,8 +1,10 @@
 ---
-title: "Untitled"
+title: "Quick Sentiment Analysis on AI sample"
 author: "Paul Oldham"
 date: "21/05/2018"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -31,6 +33,7 @@ ai_tokens %>%
   count(word, sort = TRUE)
 ```
 
+
 ```{r}
 # join to sentiments dictionary (in this case bing)
 ai_sentiment <- ai_tokens %>%
@@ -40,6 +43,7 @@ ai_sentiment <- ai_tokens %>%
   mutate(sentiment = positive - negative)
 ai_sentiment
 ```
+
 
 ```{r}
 # What are the top positive terms in the tweets
