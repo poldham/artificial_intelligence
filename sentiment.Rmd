@@ -9,8 +9,9 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Rough initial workings on sentiment analysis for AI tweets
+Rough initial workings on sentiment analysis for AI tweets. Uses the Silge and Robinson *Text Mining with R: A Tidy Approach* from which the code is adapted. 
 
+Takes the 9175 AI seed tweets.
 
 ```{r}
 library(tidytext)
@@ -19,24 +20,39 @@ ai_tokens <- AI %>%
   unnest_tokens(., word, text) %>% 
   anti_join(stop_words)
 
+# count up and rank the words
+ai_tokens %>% 
+  count(word, sort = TRUE)
+```
+
+```{r}
 # join to sentiments dictionary (in this case bing)
 ai_sentiment <- ai_tokens %>%
   inner_join(get_sentiments("bing")) %>%
   count(word, sentiment) %>%
   spread(sentiment, n, fill = 0) %>%
   mutate(sentiment = positive - negative)
+ai_sentiment
+```
 
+```{r}
 # What are the top positive terms in the tweets
 
 ai_sentiment %>% 
-  arrange(sentiment) %>% 
-  View()
+  arrange(desc(sentiment))
+```
 
+
+```{r}
 # Wnat are the top ranking negative terms
 ai_sentiment %>% 
   dplyr::filter(sentiment <= 0) %>%
-  arrange(sentiment) %>% 
-  View()
+  arrange(sentiment)
+```
+
+
+
+
 
 # This is a very raw quick look at sentiments to see what comes up
 # No banana yet
